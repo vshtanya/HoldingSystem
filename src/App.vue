@@ -1,138 +1,109 @@
 <template>
-  <div v-if="$route.name !== 'Login'" class="min-h-screen flex font-sans text-slate-900 relative">
+  <div v-if="$route.name !== 'Login'" class="min-h-screen flex flex-col font-sans bg-white text-slate-900">
     
-    <aside 
-  @mouseenter="isCollapsed = false"
-  @mouseleave="isCollapsed = true"
-  :class="isCollapsed ? 'w-20' : 'w-72'"
-  class="bg-white/70 backdrop-blur-xl text-slate-900 flex flex-col shadow-2xl transition-all duration-300 ease-in-out sticky top-0 h-screen z-50 border-r border-white/40"
->
-    >
-      <div class="p-4 flex flex-col h-full overflow-hidden">
-        
-        <div class="flex items-center mb-10 h-10">
-          <div :class="isCollapsed ? 'mx-auto' : 'mr-3'" class="w-10 h-10 bg-blue-600 rounded-lg flex items-center justify-center font-bold text-xl shrink-0 shadow-lg">
-            H
-          </div>
-          <span v-if="!isCollapsed" class="text-xl font-bold tracking-tight whitespace-nowrap">
-            Holding Control
-          </span>
-        </div>
-        
-        <nav class="flex flex-col gap-2">
-          <router-link 
-            v-for="link in filteredNav" 
-            :key="link.path"
-            :to="link.path" 
-            class="flex items-center p-3 rounded-xl transition-all hover:bg-white/10 group relative"
-            active-class="bg-blue-600 shadow-lg text-white"
-          >
-            <div class="-ml-1 flex justify-center items-center shrink-0">
-              <img :src="link.icon" class="w-7 h-7 object-contain group-hover:scale-110 transition-transform" />
-            </div>
-            
-            <span v-if="!isCollapsed" class="ml-3 font-medium whitespace-nowrap transition-opacity">
-              {{ link.name }}
-            </span>
-          </router-link>
-        </nav>
-
-        <div class="mt-auto pt-6 border-t border-white/10">
-
-<button 
-  @click="handleLogout"
-  class="w-full flex items-center p-3 rounded-xl hover:bg-red-50 text-slate-500 hover:text-red-600 transition-all group"
->
-  <div class="w-10 h-10 flex justify-center items-center shrink-0">
-    <img 
-      :src="logoutIcon" 
-      class="w-6 h-6 object-contain opacity-60 group-hover:opacity-100 group-hover:scale-110 transition-all" 
-      alt="Exit"
-    />
-  </div>
-  
-  <span v-if="!isCollapsed" class="ml-3 font-medium">Выйти</span>
-</button>
-        </div>
-      </div>
-    </aside>
-
-    <main class="flex-1 flex flex-col min-w-0 h-screen relative z-10">
-      <header class="h-16 bg-white/70 backdrop-blur-md border-b border-white/20 flex items-center justify-between px-8">
-        <div class="font-bold uppercase tracking-wider text-blue-700">{{ $route.name }}</div>
-      </header>
+    <!-- ТОП-ПАНЕЛЬ -->
+    <header class="h-16 bg-emerald-950 text-white flex items-center px-8 sticky top-0 z-50 shadow-sm">
       
-      <div class="flex-1 overflow-y-auto p-6 bg-white/20 backdrop-blur-[2px]">
-        <router-view></router-view>
+      <!-- ЛОГОТИП -->
+      <div class="flex items-center gap-3 mr-12">
+        <img :src="logo" class="h-9 w-auto object-contain" alt="VSHold">
+        <span class="text-3xl font-bold tracking-tighter">VSHold</span>
       </div>
+
+      <!-- МЕНЮ -->
+      <nav class="flex items-center gap-8 text-sm font-medium flex-1">
+        
+       <!-- Компания — 4 пункта -->
+<div class="relative group">
+  <router-link to="/" class="hover:text-emerald-300 transition-colors py-2">Компания</router-link>
+  <div class="absolute top-16 left-0 invisible opacity-0 group-hover:visible group-hover:opacity-100 bg-white text-slate-900 shadow-2xl rounded-3xl py-8 px-8 w-[680px] grid grid-cols-2 gap-8 z-50 transition-all duration-200">
+    <div class="space-y-3">
+      <router-link to="/company/history" class="block py-2.5 hover:text-emerald-600 font-medium">История компании</router-link>
+      <router-link to="/company/geography" class="block py-2.5 hover:text-emerald-600 font-medium">География присутствия</router-link>
+    </div>
+    <div class="space-y-3">
+      <router-link to="/company/management" class="block py-2.5 hover:text-emerald-600 font-medium">Руководство холдинга</router-link>
+      <router-link to="/company/governance" class="block py-2.5 hover:text-emerald-600 font-medium">Корпоративное управление</router-link>
+    </div>
+  </div>
+</div>
+
+        <!-- Партнёрам -->
+        <div class="relative group">
+          <router-link to="/companies" class="hover:text-emerald-300 transition-colors py-2">Партнёрам</router-link>
+          <div class="absolute top-16 left-0 invisible opacity-0 group-hover:visible group-hover:opacity-100 bg-white text-slate-900 shadow-2xl rounded-3xl py-8 px-8 w-[620px] z-50 transition-all duration-200">
+            <div class="grid grid-cols-2 gap-6">
+              <router-link to="/partners/suppliers" class="block p-4 hover:bg-slate-50 rounded-2xl">Поставщикам</router-link>
+              <router-link to="/partners/services" class="block p-4 hover:bg-slate-50 rounded-2xl">Сервисы для партнёров</router-link>
+              <router-link to="/partners/marketing" class="block p-4 hover:bg-slate-50 rounded-2xl">Маркетинговые возможности</router-link>
+              <router-link to="/partners/franchise" class="block p-4 hover:bg-slate-50 rounded-2xl">Стать франчайзи</router-link>
+            </div>
+          </div>
+        </div>
+
+        <!-- Акционерам и инвесторам — 3 рабочих пункта -->
+<div class="relative group">
+  <router-link to="/reports" class="hover:text-emerald-300 transition-colors py-2">Акционерам и инвесторам</router-link>
+  <div class="absolute top-16 left-0 invisible opacity-0 group-hover:visible group-hover:opacity-100 bg-white text-slate-900 shadow-2xl rounded-3xl py-8 px-8 w-[520px] z-50 transition-all duration-200">
+    <div class="space-y-3">
+      <router-link to="/investors/reports" class="block py-2.5 hover:text-emerald-600 font-medium">Отчёты и результаты</router-link>
+      <router-link to="/investors/stocks" class="block py-2.5 hover:text-emerald-600 font-medium">Акции и дивиденды</router-link>
+      <router-link to="/investors/ratings" class="block py-2.5 hover:text-emerald-600 font-medium">Кредитные рейтинги</router-link>
+    </div>
+  </div>
+</div>
+
+
+<!-- Пресс-центр -->
+<div class="relative group">
+  <router-link to="/" class="hover:text-emerald-300 transition-colors py-2">Пресс-центр</router-link>
+  <div class="absolute top-16 left-0 invisible opacity-0 group-hover:visible group-hover:opacity-100 bg-white text-slate-900 shadow-2xl rounded-3xl py-8 px-8 w-[520px] z-50 transition-all duration-200">
+    <div class="space-y-3">
+      <router-link to="/press/releases" class="block py-2.5 hover:text-emerald-600 font-medium">Пресс-релизы</router-link>
+      <router-link to="/press/news" class="block py-2.5 hover:text-emerald-600 font-medium">Новости холдинга</router-link>
+      <router-link to="/press/mediabank" class="block py-2.5 hover:text-emerald-600 font-medium">Медиабанк</router-link>
+      <router-link to="/press/contacts" class="block py-2.5 hover:text-emerald-600 font-medium">Контакты для прессы</router-link>
+    </div>
+  </div>
+</div>
+
+        <router-link to="/" class="hover:text-emerald-300 transition-colors py-2">Пресс-центр</router-link>
+        <router-link to="/career" class="hover:text-emerald-300 transition-colors py-2">Карьера</router-link>
+      </nav>
+
+      <!-- ПРАВАЯ ЧАСТЬ -->
+      <div class="flex items-center gap-6">
+        <button class="px-4 py-1.5 text-xs font-medium border border-white/30 rounded-3xl hover:bg-white/10 transition-colors">RU</button>
+        <button class="w-9 h-9 flex items-center justify-center hover:bg-white/10 rounded-2xl transition-colors text-xl">🔍</button>
+        
+        <div class="flex items-center gap-3 border-l border-white/20 pl-6">
+          <span class="text-sm text-emerald-100">Добро пожаловать,</span>
+          <span class="font-semibold">{{ auth.userName || 'Коллега' }}</span>
+          <button @click="handleLogout" class="ml-4 px-5 py-2 text-sm font-medium hover:bg-white/10 rounded-2xl transition-colors">Выйти</button>
+        </div>
+      </div>
+    </header>
+
+    <main class="flex-1 overflow-y-auto">
+      <router-view></router-view>
     </main>
   </div>
 
-  <div v-else class="h-screen w-screen overflow-hidden">
+  <div v-else class="h-screen w-screen bg-white overflow-hidden">
     <router-view></router-view>
   </div>
 </template>
 
 <script setup lang="ts">
-import { ref, computed } from 'vue'
 import { useRouter } from 'vue-router'
 import { useAuthStore } from './store/auth'
-
-// ПОДКЛЮЧАЕМ ТВОИ КАРТИНКИ
-import chartIcon from './assets/chart.png'
-import buildingIcon from './assets/building.png'
-import filesIcon from './assets/files.png'
-import logoutIcon from './assets/door.png'
+import logo from './assets/vshold-logo.png'
 
 const auth = useAuthStore()
 const router = useRouter()
-const isCollapsed = ref(true)
-
-const navigation = [
-  { name: 'Главная панель', path: '/', icon: chartIcon, adminOnly: true },
-  { name: 'Дочерние компании', path: '/companies', icon: buildingIcon, adminOnly: true },
-  { name: 'Отчетность', path: '/reports', icon: filesIcon, adminOnly: false },
-]
-
-const filteredNav = computed(() => {
-  return navigation.filter(link => !link.adminOnly || auth.userRole === 'admin')
-})
 
 const handleLogout = () => {
-  auth.logout() // Теперь используем метод из стора
+  auth.logout()
   router.push('/login')
 }
 </script>
-
-<style>
-/* НАСТРОЙКИ ФОНА */
-html, body {
-  height: 100%;
-  margin: 0;
-  padding: 0;
-  /* Используем твой bg.png */
-  background-image: url('./assets/bg.png'); 
-  background-size: cover;
-  background-position: center;
-  background-attachment: fixed;
-  background-repeat: no-repeat;
-  background-color: #0f172a;
-}
-
-/* Затемнение картинки, чтобы интерфейс читался */
-body::before {
-  content: "";
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: rgba(15, 23, 42, 0.6); 
-  z-index: 0;
-}
-
-#app {
-  position: relative;
-  z-index: 1;
-}
-</style>
