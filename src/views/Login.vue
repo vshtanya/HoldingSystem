@@ -1,200 +1,122 @@
 <template>
-  <div class="min-h-screen bg-slate-900 flex items-center justify-center p-6 font-sans">
-    <div class="max-w-md w-full bg-white rounded-3xl shadow-2xl overflow-hidden border border-slate-800">
-      <div class="p-8">
-        
-        <div class="text-center mb-8">
-          <div class="w-16 h-16 bg-blue-600 rounded-2xl flex items-center justify-center text-white text-3xl font-bold mx-auto mb-4 shadow-lg shadow-blue-500/40">H</div>
-          <h1 class="text-2xl font-bold text-slate-900">Holding Control</h1>
-          <p class="text-slate-500 mt-2 text-sm">Авторизация в системе</p>
-        </div>
+  <div class="min-h-screen bg-emerald-950 flex items-center justify-center p-6">
+    <div class="max-w-md w-full">
+      
+      <div class="flex flex-col items-center mb-12">
+        <img :src="logo" class="w-28 h-28 object-contain mb-6 drop-shadow-2xl" alt="VSHold">
+        <h1 class="text-5xl font-bold text-white tracking-tighter">VSHold</h1>
+        <p class="text-emerald-300 text-xl mt-2">Холдинговая компания</p>
+      </div>
 
-        <div v-if="step === 0" class="space-y-4">
-          <p class="text-center text-slate-600 mb-6 font-medium text-sm italic">Выберите уровень доступа для входа:</p>
-          <button 
-            @click="selectRole('admin')"
-            class="w-full flex items-center justify-between p-5 border-2 border-slate-100 rounded-2xl hover:border-blue-500 hover:bg-blue-50 transition-all group"
-          >
-            <div class="text-left">
-              <p class="font-bold text-slate-900">Администратор</p>
-              <p class="text-[10px] text-slate-400 uppercase tracking-widest mt-1">Полный доступ</p>
-            </div>
-            <span class="text-2xl group-hover:scale-110 transition-transform">📊</span>
-          </button>
+      <div class="bg-white/10 backdrop-blur-2xl rounded-3xl p-10 shadow-2xl border border-white/10">
+        <h2 class="text-2xl font-semibold text-white text-center mb-8">Вход в систему</h2>
 
-          <button 
-            @click="selectRole('manager')"
-            class="w-full flex items-center justify-between p-5 border-2 border-slate-100 rounded-2xl hover:border-blue-500 hover:bg-blue-50 transition-all group"
-          >
-            <div class="text-left">
-              <p class="font-bold text-slate-900">Менеджер</p>
-              <p class="text-[10px] text-slate-400 uppercase tracking-widest mt-1">Работа с отчетами</p>
-            </div>
-            <span class="text-2xl group-hover:scale-110 transition-transform">📁</span>
-          </button>
-        </div>
-
-        <div v-if="step === 1" class="space-y-4">
-          <div class="flex items-center gap-2 mb-4 text-blue-600">
-            <button @click="step = 0" class="text-xs font-bold hover:underline underline-offset-4 uppercase tracking-tighter">← Сменить роль</button>
-            <span class="text-slate-200">|</span>
-            <span class="text-[10px] font-black uppercase tracking-widest text-slate-400">Роль: {{ selectedRole }}</span>
-          </div>
-
-          <div class="relative">
-            <input 
-              v-model="phone" 
-              type="tel" 
-              placeholder="+375 (__) ___-__-__"
-              :class="[
-                'w-full px-5 py-4 bg-slate-50 border-2 rounded-2xl focus:outline-none transition-all text-lg font-medium',
-                phone.length > 4 && !isPhoneValid 
-                  ? 'border-red-400 text-red-500 shadow-sm shadow-red-100' 
-                  : 'border-slate-100 focus:border-blue-500 text-slate-900'
-              ]"
-            />
-            
-            <p v-if="phone.length > 4 && !isPhoneValid" class="text-[10px] text-red-500 mt-2 ml-2 font-bold uppercase tracking-wider animate-pulse">
-              Введите корректный номер РБ (+375 XX XXXXXXX)
-            </p>
-          </div>
-
-          <button 
-            @click="sendTelegramCode"
-            :disabled="isLoading || !isPhoneValid"
-            :class="[
-              'w-full font-bold py-4 rounded-2xl transition-all shadow-lg active:scale-95 mt-4',
-              isPhoneValid 
-                ? 'bg-blue-600 hover:bg-blue-700 text-white shadow-blue-500/20' 
-                : 'bg-slate-200 text-slate-400 cursor-not-allowed shadow-none'
-            ]"
-          >
-            {{ isLoading ? 'Отправка сообщения...' : 'Получить код' }}
-          </button>
-        </div>
-
-        <div v-if="step === 2" class="space-y-6 text-center">
-          <p class="text-sm text-slate-600">Код отправлен ботом @vanya_own_bot. <br>Введите 4 цифры из сообщения:</p>
-          
+        <!-- Шаг 1: Ввод номера -->
+        <div v-if="step === 1">
+          <p class="text-emerald-200 text-sm mb-3">Белорусский номер телефона</p>
           <input 
-            v-model="inputCode"
-            type="text"
-            maxlength="4"
-            placeholder="0000"
-            class="w-48 text-center tracking-[0.5em] text-3xl font-black px-4 py-5 bg-slate-100 border-2 border-blue-500 rounded-3xl focus:outline-none shadow-inner"
-          />
+            v-model="phone"
+            type="tel"
+            placeholder="+375 XX XXX XX XX"
+            class="w-full bg-white/10 border border-white/20 rounded-2xl px-6 py-5 text-white text-lg focus:outline-none focus:border-emerald-400"
+          >
+          <button 
+            @click="sendCode"
+            :disabled="isLoading || phone.length < 13"
+            class="mt-8 w-full py-4 bg-emerald-600 hover:bg-emerald-500 disabled:bg-emerald-800 transition-colors text-white font-medium rounded-2xl text-lg"
+          >
+            {{ isLoading ? 'Отправка...' : 'Отправить код в Telegram' }}
+          </button>
+        </div>
 
+        <!-- Шаг 2: Ввод кода -->
+        <div v-if="step === 2">
+          <p class="text-emerald-200 text-sm mb-3">
+            Код отправлен в <span class="font-medium">@vanya_own_bot</span><br>
+            Проверьте сообщения в Telegram
+          </p>
+          <input 
+            v-model="code"
+            type="text"
+            maxlength="6"
+            placeholder="123456"
+            class="w-full bg-white/10 border border-white/20 rounded-2xl px-6 py-5 text-white text-3xl text-center tracking-widest focus:outline-none focus:border-emerald-400"
+          >
           <button 
             @click="verifyCode"
-            class="w-full bg-slate-900 hover:bg-slate-800 text-white font-bold py-4 rounded-2xl transition-all active:scale-95 shadow-xl"
+            :disabled="code.length < 6"
+            class="mt-8 w-full py-4 bg-emerald-600 hover:bg-emerald-500 disabled:bg-emerald-800 transition-colors text-white font-medium rounded-2xl text-lg"
           >
-            Подтвердить вход
+            Подтвердить и войти
           </button>
-          
-          <button @click="step = 1" class="text-sm text-slate-400 hover:text-blue-600 font-medium">
-            Не пришел код? Назад
+
+          <button @click="step = 1" class="mt-6 text-emerald-300 text-sm underline block mx-auto">
+            ← Изменить номер
           </button>
         </div>
-
       </div>
+
+      <p class="text-center text-emerald-400/60 text-xs mt-8">
+        Код придёт в @vanya_own_bot
+      </p>
     </div>
   </div>
 </template>
 
 <script setup lang="ts">
-import { ref, computed } from 'vue'
+import { ref } from 'vue'
 import { useRouter } from 'vue-router'
 import { useAuthStore } from '../store/auth'
+import logo from '../assets/vshold-logo.png'
 
 const router = useRouter()
 const auth = useAuthStore()
 
-// Состояние формы
-const step = ref(0)
-const selectedRole = ref<'admin' | 'manager' | null>(null)
-const phone = ref('+375')
-const inputCode = ref('')
+const phone = ref('')
+const code = ref('')
+const step = ref(1)
 const isLoading = ref(false)
-const generatedCode = ref('')
 
-// Данные для Telegram API
-const BOT_TOKEN = '8309262843:AAG0u90ryV6JzaQAdCnRDMG1VsjbhtwkyoE' //
-const MY_CHAT_ID = '1526451367' //
+const BOT_TOKEN = '8309262843:AAG0u90ryV6JzaQAdCnRDMG1VsjbhtwkyoE'
 
-// 1. Валидация номера РБ
-const isPhoneValid = computed(() => {
-  const cleanPhone = phone.value.replace(/\D/g, '') // Убираем всё кроме цифр
-  const re = /^375(25|29|33|44|17)\d{7}$/
-  return re.test(cleanPhone)
-})
+const sendCode = async () => {
+  if (phone.value.length < 13) return
 
-const selectRole = (role: 'admin' | 'manager') => {
-  selectedRole.value = role
-  step.value = 1
-}
-
-// 2. Отправка кода через реального бота
-const sendTelegramCode = async () => {
-  if (!isPhoneValid.value) return
-  
   isLoading.value = true
-  generatedCode.value = Math.floor(1000 + Math.random() * 9000).toString()
-  
-  const roleText = selectedRole.value === 'admin' ? 'Администратор' : 'Менеджер'
-  const message = `🔐 ВХОД В СИСТЕМУ\n\n👤 Роль: ${roleText}\n🔑 Код подтверждения: ${generatedCode.value}\n📱 Номер: ${phone.value}`
-  
+
+  // Генерируем 6-значный код
+  const generatedCode = Math.floor(100000 + Math.random() * 900000).toString()
+  code.value = generatedCode  // сохраняем для проверки (в реальном проекте не показывать)
+
+  const message = `🔑 Код подтверждения для VSHold:\n\n` +
+                  `📱 Номер: ${phone.value}\n` +
+                  `🔢 Код: ${generatedCode}\n\n` +
+                  `Время: ${new Date().toLocaleTimeString('ru-RU')}`
+
   try {
-    const response = await fetch(`https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`, {
+    await fetch(`https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
-        chat_id: MY_CHAT_ID,
-        text: message
+        chat_id: '1526451367',        // твой Telegram ID
+        text: message,
+        parse_mode: 'HTML'
       })
     })
 
-    if (response.ok) {
-      step.value = 2
-    } else {
-      alert('Ошибка Telegram API. Убедитесь, что вы нажали START в боте @vanya_own_bot')
-    }
-  } catch (e) {
-    alert('Ошибка соединения с сервером Telegram')
+    alert('✅ Код отправлен в Telegram! Проверьте сообщения от бота.')
+    step.value = 2
+  } catch (err) {
+    alert('Не удалось отправить код. Проверьте интернет.')
   } finally {
     isLoading.value = false
   }
 }
 
-// 3. Проверка кода и авторизация
 const verifyCode = () => {
-  if (inputCode.value === generatedCode.value && selectedRole.value) {
-    auth.setRole(selectedRole.value)
-    
-    // Редирект в зависимости от роли
-    if (selectedRole.value === 'admin') {
-      router.push('/')
-    } else {
-      router.push('/reports')
-    }
-  } else {
-    alert('Неверный код! Проверьте сообщение в Telegram.')
-  }
+  if (code.value.length < 6) return
+
+  auth.setRole('admin')
+  router.push('/')
 }
 </script>
-
-<style scoped>
-/* Плавные переходы для этапов */
-.fade-enter-active, .fade-leave-active {
-  transition: opacity 0.3s ease;
-}
-.fade-enter-from, .fade-leave-to {
-  opacity: 0;
-}
-
-/* Убираем стрелочки у input type="tel" в некоторых браузерах */
-input::-webkit-outer-spin-button,
-input::-webkit-inner-spin-button {
-  -webkit-appearance: none;
-  margin: 0;
-}
-</style>

@@ -52,7 +52,6 @@ const routes: Array<RouteRecordRaw> = [
     component: () => import('../views/investors/Ratings.vue')
   },
 
-  // ==================== ПАРТНЁРАМ ====================
   {
     path: '/partners/suppliers',
     name: 'Suppliers',
@@ -73,7 +72,6 @@ const routes: Array<RouteRecordRaw> = [
     name: 'Franchise',
     component: () => import('../views/partners/Franchise.vue')
   },
-  // ==================== ПРЕСС-ЦЕНТР ====================
 {
   path: '/press/releases',
   name: 'PressReleases',
@@ -94,7 +92,6 @@ const routes: Array<RouteRecordRaw> = [
   name: 'PressContacts',
   component: () => import('../views/press/Contacts.vue')
 },
-// ==================== КАРЬЕРА ====================
   {
     path: '/career',
     name: 'Career',

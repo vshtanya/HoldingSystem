@@ -41,19 +41,26 @@
       </div>
     </div>
 
-    <!-- СТРАТЕГИЯ УСТОЙЧИВОГО РАЗВИТИЯ -->
-    <div class="relative h-screen bg-cover bg-center flex items-center" style="background-image: url('https://picsum.photos/id/1015/2000/1200')">
-      <div class="absolute inset-0 bg-gradient-to-r from-black/70 to-transparent"></div>
-      <div class="max-w-5xl mx-auto px-8 relative z-10 text-white">
-        <div class="max-w-lg">
-          <h2 class="text-6xl font-bold leading-none">Стратегия устойчивого развития</h2>
-          <p class="mt-6 text-2xl text-emerald-100">Мы заботимся о будущем: экология, социальная ответственность и устойчивое развитие бизнеса</p>
-          <button class="mt-12 px-8 py-4 bg-emerald-600 hover:bg-emerald-700 text-white font-semibold rounded-2xl text-xl transition-all">Перейти на сайт</button>
-        </div>
-      </div>
+    <!-- СЕКЦИЯ "СТРАТЕГИЯ УСТОЙЧИВОГО РАЗВИТИЯ" - ЗЕЛЁНЫЙ ФОН -->
+<div class="relative h-screen bg-cover bg-center flex items-center" 
+     style="background-image: url('https://images.unsplash.com/photo-1542601906990-b4d3a1f0b1e8?ixlib=rb-4.0.3&q=85&fm=jpg&crop=entropy&cs=srgb')">
+  
+  <!-- Тёмный overlay для читаемости -->
+  <div class="absolute inset-0 bg-gradient-to-r from-emerald-950/80 via-emerald-900/60 to-transparent"></div>
+  
+  <div class="max-w-5xl mx-auto px-8 relative z-10 text-white">
+    <div class="max-w-lg">
+      <h2 class="text-6xl font-bold leading-none">Стратегия устойчивого развития</h2>
+      <p class="mt-6 text-2xl text-emerald-100">
+        Мы заботимся о будущем ваших компаний и успехе людей
+      </p>
+      <button class="mt-12 px-8 py-4 bg-emerald-600 hover:bg-emerald-700 text-white font-semibold rounded-2xl text-xl transition-all">
+        Перейти на сайт
+      </button>
     </div>
+  </div>
+</div>
 
-    <!-- ПРЕСС-ЦЕНТР (точно как на твоём скриншоте) -->
     <div class="max-w-7xl mx-auto px-8 py-20 bg-white">
       <h2 class="text-5xl font-semibold text-emerald-950 mb-12">Пресс-центр</h2>
       <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
@@ -109,17 +116,17 @@
             <div class="space-y-8">
               <div>
                 <p class="text-emerald-700 font-medium">Корпоративный центр</p>
-                <p class="text-2xl font-semibold mt-2">+7 (495) 662-88-88</p>
-                <p class="text-2xl font-semibold">+7 (495) 789-95-95</p>
+                <p class="text-2xl font-semibold mt-2">+375 (33) 777-77-77</p>
+                <p class="text-2xl font-semibold">+375 (33) 999-99-99</p>
               </div>
               <div>
                 <p class="text-emerald-700 font-medium">Адрес</p>
-                <p class="text-lg mt-2">119049, Россия, г. Москва,<br>улица Коровий Вал, 5, стр. 1</p>
+                <p class="text-lg mt-2">225210, Беларусь, г. Берёза,<br>улица Зелёная, 14.</p>
               </div>
               <div class="flex gap-6 text-emerald-600 font-medium">
                 <a href="#" class="hover:underline">ВКонтакте</a>
                 <a href="#" class="hover:underline">Telegram</a>
-                <a href="#" class="hover:underline">Max</a>
+                <a href="#" class="hover:underline">Инстаграм</a>
               </div>
             </div>
           </div>
