@@ -13,7 +13,6 @@ const routes: Array<RouteRecordRaw> = [
   { path: '/companies', name: 'Companies', component: Companies },
   { path: '/reports', name: 'Reports', component: Reports },
 
-  // ==================== КОМПАНИЯ ====================
   {
     path: '/company/history',
     name: 'History',
@@ -34,8 +33,6 @@ const routes: Array<RouteRecordRaw> = [
     name: 'CorporateGovernance',
     component: () => import('../views/company/Governance.vue')
   },
-
-  // ==================== АКЦИОНЕРАМ И ИНВЕСТОРАМ ====================
   {
     path: '/investors/reports',
     name: 'InvestorReports',
