@@ -18,4 +18,4 @@ defineProps<{
   description: string
   icon: string
 }>()
-</script>
+</script>   

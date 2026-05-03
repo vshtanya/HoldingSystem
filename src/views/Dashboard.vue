@@ -40,7 +40,6 @@
         </div>
       </div>
     </div>
-
     <!-- СЕКЦИЯ "СТРАТЕГИЯ УСТОЙЧИВОГО РАЗВИТИЯ" - ЗЕЛЁНЫЙ ФОН -->
 <div class="relative h-screen bg-cover bg-center flex items-center" 
      style="background-image: url('https://images.unsplash.com/photo-1542601906990-b4d3a1f0b1e8?ixlib=rb-4.0.3&q=85&fm=jpg&crop=entropy&cs=srgb')">
@@ -60,7 +59,6 @@
     </div>
   </div>
 </div>
-
     <div class="max-w-7xl mx-auto px-8 py-20 bg-white">
       <h2 class="text-5xl font-semibold text-emerald-950 mb-12">Пресс-центр</h2>
       <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
